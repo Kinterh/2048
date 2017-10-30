@@ -57,10 +57,10 @@ namespace Twozerofourpal
             if (way == Way.check)
             {
                 return
-                Move(Way.left | Way.check) ||
-                Move(Way.right | Way.check) ||
-                Move(Way.down | Way.check) ||
-                Move(Way.up | Way.check);
+                Move(Way.left) ||
+                Move(Way.right) ||
+                Move(Way.down) ||
+                Move(Way.up);
             }
 
             if (way.HasFlag(Way.left))
@@ -70,37 +70,40 @@ namespace Twozerofourpal
                     int x = 0;
                     while (x < 3)
                     {
-                        for (int i = x + 1; i < 4; i++)
+                        if (Numbers[x, y] == 0) x++;
+                        else
                         {
-                            if (Numbers[i, y] == 0 ) continue;
-                            if (Numbers[x, y] == 0) { x++; continue; }
-                            if (Numbers[i, y] != Numbers[x, y])
+                            for (int i = x + 1; i < 4; i++)
                             {
-                                x++;
-                                continue;
-                            }
-                            if (!(IsCombined[x,y]||IsCombined[i,y])&&(Numbers[i, y] == Numbers[x, y]))
-                            {
-                                IsCombined[x, y] = IsCombined[i, y] = true;
-                                Numbers[i, y] = 0;
-                                i++;
-                                Numbers[x, y] *= 2;
-                                isMove = true;
+                                if (Numbers[i, y] == 0 && i == 3) x++;
+                                if (Numbers[i, y] == 0) continue;
+                                else if (Numbers[i, y] == Numbers[x, y] && !IsCombined[x, y])
+                                {
+                                    IsCombined[x, y] = true;
+                                    Numbers[x, y] *= 2;
+                                    Numbers[i, y] = 0;
+                                    isMove = true;
+                                }
+                                else if (Numbers[x, y] != Numbers[i, y])
+                                {
+                                    x++;
+                                    break;
+                                }
                             }
                         }
                     }
                 }
-                if(isMove)
+                if (isMove)
                 {
-                    for(int y=0;y<4;y++)
+                    for (int y = 0; y < 4; y++)
                     {
-                        for(int x=0;x<4;x++)
+                        for (int x = 0; x < 4; x++)
                         {
-                            if(Numbers[x,y]==0)
+                            if (Numbers[x, y] == 0)
                             {
-                                for(int i=x+1;i<4;i++)
+                                for (int i = x + 1; i < 4; i++)
                                 {
-                                    if(Numbers[i,y]!=0)
+                                    if (Numbers[i, y] != 0)
                                     {
                                         Numbers[x, y] = Numbers[i, y];
                                         Numbers[i, y] = 0;

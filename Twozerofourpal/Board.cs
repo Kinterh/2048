@@ -94,20 +94,16 @@ namespace Twozerofourpal
                 }
                 for (int y = 0; y < 4; y++)
                 {
-                    for (int x = 3; x >= 0; x--)
+                    for (int x = 0; x < 3; x++)
                     {
-                        if (Numbers[y, x] != 0)
+                        if (Numbers[y, x] != 0) continue;
+                        for (int i = x + 1; i < 4; i++)
                         {
-                            int i;
-                            for (i = x - 1; i >= 0; i--)
+                            if (Numbers[y, i] != 0)
                             {
-                                if (Numbers[y, i] != 0) break;
-                            }
-                            if (i + 1 != x)
-                            {
-                                Numbers[y, i + 1] = Numbers[y, x];
-                                Numbers[y, x] = 0;
-                                isMove = true;
+                                Numbers[y, x] = Numbers[y, i];
+                                Numbers[y, i] = 0;
+                                break;
                             }
                         }
                     }

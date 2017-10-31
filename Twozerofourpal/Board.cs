@@ -42,9 +42,9 @@ namespace Twozerofourpal
             {
                 x = r.Next(0, 4); y = r.Next(0, 4);
             }
-            while (Numbers[x, y] != 0);
+            while (Numbers[y, x] != 0);
 
-            Numbers[x, y] = new int[] { 2, 2, 4 }[r.Next(0, 3)];
+            Numbers[y, x] = new int[] { 2, 2, 4 }[r.Next(0, 3)];
         }
 
         ///<summary>
@@ -70,58 +70,56 @@ namespace Twozerofourpal
                     int x = 0;
                     while (x < 3)
                     {
-                        if (Numbers[x, y] == 0) x++;
+                        if (Numbers[y, x] == 0) x++;
                         else
                         {
                             for (int i = x + 1; i < 4; i++)
                             {
-                                if (Numbers[i, y] == 0 && i == 3) x++;
-                                if (Numbers[i, y] == 0) continue;
-                                else if (Numbers[i, y] == Numbers[x, y] && !IsCombined[x, y])
+                                if (Numbers[y, i] == 0) continue;
+                                if (Numbers[y, x] == Numbers[y, i] && !IsCombined[y, x])
                                 {
-                                    IsCombined[x, y] = true;
-                                    Numbers[x, y] *= 2;
-                                    Numbers[i, y] = 0;
+                                    Numbers[y, x] *= 2;
+                                    Numbers[y, i] = 0;
+                                    IsCombined[y, x] = true;
                                     isMove = true;
                                 }
-                                else if (Numbers[x, y] != Numbers[i, y])
+                                if (Numbers[y, x] != Numbers[y, i])
                                 {
-                                    x++;
                                     break;
                                 }
                             }
+                            x++;
                         }
                     }
                 }
-                if (isMove)
+                for (int y = 0; y < 4; y++)
                 {
-                    for (int y = 0; y < 4; y++)
+                    for (int x = 3; x >= 0; x--)
                     {
-                        for (int x = 0; x < 4; x++)
+                        if (Numbers[y, x] != 0)
                         {
-                            if (Numbers[x, y] == 0)
+                            int i;
+                            for (i = x - 1; i >= 0; i--)
                             {
-                                for (int i = x + 1; i < 4; i++)
-                                {
-                                    if (Numbers[i, y] != 0)
-                                    {
-                                        Numbers[x, y] = Numbers[i, y];
-                                        Numbers[i, y] = 0;
-                                        break;
-                                    }
-                                }
+                                if (Numbers[y, i] != 0) break;
+                            }
+                            if (i + 1 != x)
+                            {
+                                Numbers[y, i + 1] = Numbers[y, x];
+                                Numbers[y, x] = 0;
+                                isMove = true;
                             }
                         }
                     }
                 }
-                if (way.HasFlag(Way.right)) Flip();
-                else if (way.HasFlag(Way.down)) RotateRight();
-                else if (way.HasFlag(Way.up)) { Flip(); RotateRight(); }
+                if (way.HasFlag(Way.right)) { RotateRight(); RotateRight(); }
+                else if (way.HasFlag(Way.down)) { RotateRight(); RotateRight(); RotateRight(); }
+                else if (way.HasFlag(Way.up)) { RotateRight(); }
                 return isMove;
             }
             else if (way.HasFlag(Way.right))
             {
-                Flip();
+                RotateRight(); RotateRight();
                 return Move(Way.left | Way.right);
             }
             else if (way.HasFlag(Way.down))
@@ -131,12 +129,12 @@ namespace Twozerofourpal
             }
             else if (way.HasFlag(Way.up))
             {
-                RotateRight();
-                Flip();
+                RotateRight(); RotateRight(); RotateRight();
                 Move(Way.left | Way.up);
             }
 
             return false;
+
         }
 
         public void RotateRight()

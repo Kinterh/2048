@@ -7,21 +7,22 @@ namespace Twozerofourpal.Test
     public class UnitTest1
     {
         [TestMethod]
-        public void TestBoardMove()
+        public void TestBoardMoveLeft()
         {
             Board board = new Board(new int[,] {
                 { 0, 0, 0, 0 },
                 { 0, 0, 0, 0 },
-                { 0, 2, 0, 0 },
-                { 0, 2, 0, 0 }});
+                { 0, 4, 0, 2 },
+                { 0, 8, 0, 0 }}
+            );
 
-            board.Move(Way.down);
+            board.Move(Way.left);
 
             var result = new int[,] {
                 { 0, 0, 0, 0 },
                 { 0, 0, 0, 0 },
-                { 0, 0, 0, 0 },
-                { 0, 4, 0, 0 }};
+                { 4, 2, 0, 0 },
+                { 8, 0, 0, 0 }};
 
             for (int i = 0; i < 4; i++)
             {
@@ -30,26 +31,110 @@ namespace Twozerofourpal.Test
                     Assert.AreEqual(board.Numbers[i, j], result[i, j]);
                 }
             }
-
         }
 
         [TestMethod]
-        public void TestBoardMove2()
+        public void TestBoardMoveRight()
+        {
+            Board board = new Board(new int[,] {
+                { 0, 0, 0, 0 },
+                { 0, 0, 0, 0 },
+                { 0, 4, 0, 2 },
+                { 0, 8, 0, 0 }});
+
+            board.Move(Way.right);
+
+            var result = new int[,] {
+                { 0, 0, 0, 0 },
+                { 0, 0, 0, 0 },
+                { 0, 0, 4, 2 },
+                { 0, 0, 0, 8 }};
+
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    Assert.AreEqual(board.Numbers[i, j], result[i, j]);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void TestBoardMoveUp()
+        {
+            Board board = new Board(new int[,] {
+                { 0, 0, 0, 0 },
+                { 0, 0, 0, 0 },
+                { 0, 4, 0, 2 },
+                { 0, 8, 0, 0 }});
+
+            board.Move(Way.up);
+
+            var result = new int[,] {
+                { 0, 4, 0, 2 },
+                { 0, 8, 0, 0 },
+                { 0, 0, 0, 0 },
+                { 0, 0, 0, 0 }};
+
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    Assert.AreEqual(board.Numbers[i, j], result[i, j]);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void TestBoardMoveDown()
+        {
+            Board board = new Board(new int[,] {
+                { 0, 4, 0, 0 },
+                { 0, 8, 0, 0 },
+                { 0, 0, 0, 2 },
+                { 0, 0, 0, 0 }});
+
+            board.Move(Way.down);
+
+            var result = new int[,] {
+                { 0, 0, 0, 0 },
+                { 0, 0, 0, 0 },
+                { 0, 4, 0, 0 },
+                { 0, 8, 0, 2 }};
+
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    Assert.AreEqual(board.Numbers[i, j], result[i, j]);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void TestBoardCombine()
         {
             Board board = new Board(new int[,]
             {
                 { 0, 0, 0, 0 },
                 { 0, 0, 0, 0 },
-                { 0, 0, 0, 0 },
-                { 0, 4, 0, 0 }
+                { 0, 2, 0, 0 },
+                { 0, 2, 0, 0 }
             });
             board.Move(Way.left);
-            board.Move(Way.right);
+            board.Move(Way.up);
             var result = new int[,] {
                 { 4, 0, 0, 0 },
                 { 0, 0, 0, 0 },
                 { 0, 0, 0, 0 },
                 { 0, 0, 0, 0 }};
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    Assert.AreEqual(board.Numbers[i, j], result[i, j]);
+                }
+            }
         }
 
         [TestMethod]

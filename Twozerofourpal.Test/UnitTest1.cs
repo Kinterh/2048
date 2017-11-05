@@ -145,7 +145,8 @@ namespace Twozerofourpal.Test
                 { 2, 4, 2, 4 },
                 { 4, 2, 4, 2 },
                 { 2, 4, 2, 4 }});
-            Assert.Equals(board.Move(Way.check), false);
+            bool result = false;
+            Assert.AreEqual(board.Move(Way.check), result);
         }
 
         [TestMethod]

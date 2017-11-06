@@ -47,6 +47,7 @@ namespace Twozerofourpal
             Numbers[y, x] = new int[] { 2, 2, 4 }[r.Next(0, 3)];
         }
 
+
         ///<summary>
         ///움직일 수 없을 때 false를 반환합니다.
         ///</summary>

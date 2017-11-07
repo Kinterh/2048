@@ -64,15 +64,15 @@ namespace Twozerofourpal.Test
         {
             Board board = new Board(new int[,] {
                 { 0, 0, 0, 0 },
+                { 2, 2, 0, 0 },
                 { 0, 0, 0, 0 },
-                { 0, 4, 0, 2 },
-                { 0, 8, 0, 0 }});
+                { 0, 0, 0, 0 }});
 
             board.Move(Way.up);
 
             var result = new int[,] {
-                { 0, 4, 0, 2 },
-                { 0, 8, 0, 0 },
+                { 2, 2, 0, 0 },
+                { 0, 0, 0, 0 },
                 { 0, 0, 0, 0 },
                 { 0, 0, 0, 0 }};
 

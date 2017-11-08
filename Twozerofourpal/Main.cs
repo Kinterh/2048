@@ -12,6 +12,7 @@ namespace Twozerofourpal
 {
     public partial class Main : Form
     {
+        private Dictionary<int, Color> _Colors;
         private Label[,] _blocks;
         private Board _board;
 
@@ -19,6 +20,21 @@ namespace Twozerofourpal
         {
             InitializeComponent();
             _board = new Board();
+
+            _Colors = new Dictionary<int, Color>() {
+                {   0, Color.White          },
+                {   2, Color.HotPink          },
+                {   4, Color.Khaki          },
+                {   8, Color.PaleGoldenrod  },
+                {  16, Color.PaleVioletRed    },
+                {  32, Color.Moccasin       },
+                {  64, Color.Gold           },
+                { 128, Color.PapayaWhip     },
+                { 256, Color.LightPink      },
+                { 512, Color.Firebrick      },
+                {1024, Color.MediumVioletRed},
+                {2048, Color.Black          }
+            };
 
             _blocks = new Label[4, 4]
             {
@@ -43,28 +59,33 @@ namespace Twozerofourpal
 
         private void Main_KeyDown(object sender, KeyEventArgs e)
         {
+            
+
+            bool result = false;
+
+            if (e.KeyCode == Keys.A || e.KeyCode == Keys.Left)
+            {
+                result = _board.Move(Way.left);
+            }
+            else if (e.KeyCode == Keys.W || e.KeyCode == Keys.Up)
+            {
+                result = _board.Move(Way.up);
+            }
+            else if (e.KeyCode == Keys.D || e.KeyCode == Keys.Right)
+            {
+                result = _board.Move(Way.right);
+            }
+            else if (e.KeyCode == Keys.S || e.KeyCode == Keys.Down)
+            {
+                result = _board.Move(Way.down);
+            }
+
             if (!_board.Move(Way.check))
             {
                 Gameover();
             }
 
-            if (e.KeyCode == Keys.A || e.KeyCode == Keys.Left)
-            {
-                _board.Move(Way.left);
-            }
-            else if (e.KeyCode == Keys.W || e.KeyCode == Keys.Up)
-            {
-                _board.Move(Way.up);
-            }
-            else if (e.KeyCode == Keys.D || e.KeyCode == Keys.Right)
-            {
-                _board.Move(Way.right);
-            }
-            else if (e.KeyCode == Keys.S || e.KeyCode == Keys.Down)
-            {
-                _board.Move(Way.down);
-            }
-            _board.AddBlock();
+            if(result)_board.AddBlock();
             DisplayBoard();
         }
 
@@ -72,7 +93,10 @@ namespace Twozerofourpal
         {
             for (int y = 0; y < 4; y++)
                 for (int x = 0; x < 4; x++)
+                {
                     _blocks[y, x].Text = _board.Numbers[y, x] + "";
+                    _blocks[y, x].BackColor = _Colors[_board.Numbers[y, x]];
+                }
         }
 
         private void Gameover()

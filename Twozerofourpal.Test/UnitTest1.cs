@@ -64,15 +64,15 @@ namespace Twozerofourpal.Test
         {
             Board board = new Board(new int[,] {
                 { 0, 0, 0, 0 },
+                { 2, 2, 0, 0 },
                 { 0, 0, 0, 0 },
-                { 0, 4, 0, 2 },
-                { 0, 8, 0, 0 }});
+                { 0, 0, 0, 0 }});
 
             board.Move(Way.up);
 
             var result = new int[,] {
-                { 0, 4, 0, 2 },
-                { 0, 8, 0, 0 },
+                { 2, 2, 0, 0 },
+                { 0, 0, 0, 0 },
                 { 0, 0, 0, 0 },
                 { 0, 0, 0, 0 }};
 
@@ -145,7 +145,8 @@ namespace Twozerofourpal.Test
                 { 2, 4, 2, 4 },
                 { 4, 2, 4, 2 },
                 { 2, 4, 2, 4 }});
-            Assert.Equals(board.Move(Way.check), false);
+            bool result = false;
+            Assert.AreEqual(board.Move(Way.check), result);
         }
 
         [TestMethod]

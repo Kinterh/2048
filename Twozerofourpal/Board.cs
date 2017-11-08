@@ -58,15 +58,32 @@ namespace Twozerofourpal
             if (way == Way.check)
             {
 
-                int[,] tempNum = Numbers;
-                bool[,] tempCom = _IsCombined;
+                int[,] tempNum = new int[4, 4];
+                bool[,] tempCom = new bool[4, 4];
+
+                #region CopyTempArray
+                for (int y = 0; y < 4; y++)
+                    for (int x = 0; x < 4; x++)
+                    {
+                        tempNum[y, x] = Numbers[y, x];
+                        tempCom[y, x] = _IsCombined[y, x];
+                    }
+#endregion
+
                 bool result=
                 Move(Way.left) ||
                 Move(Way.right) ||
                 Move(Way.down) ||
                 Move(Way.up);
-                Numbers = tempNum;
-                _IsCombined = tempCom;
+
+                #region CopyMainArray
+                for (int y = 0; y < 4; y++)
+                    for (int x = 0; x < 4; x++)
+                    {
+                        Numbers[y, x] = tempNum[y, x];
+                        _IsCombined[y, x] = tempCom[y, x];
+                    }
+#endregion
 
                 return result;
             }

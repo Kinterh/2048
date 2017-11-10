@@ -80,12 +80,14 @@ namespace Twozerofourpal
                 result = _board.Move(Way.down);
             }
 
+            if(result)_board.AddBlock();
+
             if (!_board.Move(Way.check))
             {
                 Gameover();
             }
 
-            if(result)_board.AddBlock();
+
             DisplayBoard();
         }
 
@@ -96,6 +98,7 @@ namespace Twozerofourpal
                 {
                     _blocks[y, x].Text = _board.Numbers[y, x] + "";
                     _blocks[y, x].BackColor = _Colors[_board.Numbers[y, x]];
+                    if (_board.Numbers[y, x] == 0) _blocks[y, x].Text=String.Empty;
                 }
         }
 

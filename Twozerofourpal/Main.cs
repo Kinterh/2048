@@ -82,13 +82,12 @@ namespace Twozerofourpal
 
             if(result)_board.AddBlock();
 
+            DisplayBoard();
+
             if (!_board.Move(Way.check))
             {
                 Gameover();
             }
-
-
-            DisplayBoard();
         }
 
         private void DisplayBoard()

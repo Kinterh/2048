@@ -99,6 +99,8 @@ namespace Twozerofourpal
                     _blocks[y, x].BackColor = _Colors[_board.Numbers[y, x]];
                     if (_board.Numbers[y, x] == 0) _blocks[y, x].Text=String.Empty;
                 }
+            Score.Text = _board.score + "";
+            MaxScore.Text = _board.maxScore + "";
         }
 
         private void Gameover()

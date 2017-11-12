@@ -8,8 +8,10 @@ namespace Twozerofourpal
 {
     public class Board
     {
-        
         Random r = new Random();
+
+        public int score = 0;
+        public int maxScore = 0;
 
         public int[,] Numbers = new int[4, 4];
 
@@ -126,6 +128,11 @@ namespace Twozerofourpal
                                     Numbers[y, i] = 0;
                                     _IsCombined[y, x] = true;
                                     isMove = true;
+                                    if (!way.HasFlag(Way.check))
+                                    {
+                                        maxScore = maxScore > Numbers[y, x] ? maxScore : Numbers[y, x];
+                                        score += Numbers[y, x];
+                                    }
                                 }
                                 if (Numbers[y, x] != Numbers[y, i])
                                 {
@@ -241,5 +248,6 @@ namespace Twozerofourpal
                 }
             }
         }
+
     }
 }

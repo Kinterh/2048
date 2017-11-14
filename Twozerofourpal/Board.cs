@@ -124,7 +124,7 @@ namespace Twozerofourpal
                                 if (Numbers[y, x] == Numbers[y, i] && !_IsCombined[y, x])
                                 {
                                     Console.WriteLine("({0}, {1}) == ({2}, {3})", i, y, x, y);
-                                    Numbers[y, x] *= 2;
+                                    Numbers[y, x] <<= 1;
                                     Numbers[y, i] = 0;
                                     _IsCombined[y, x] = true;
                                     isMove = true;

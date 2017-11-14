@@ -12,7 +12,6 @@ namespace Twozerofourpal
 {
     public partial class Main : Form
     {
-        private Dictionary<int, Color> _Colors;
         private Label[,] _blocks;
         private Board _board;
 
@@ -20,21 +19,6 @@ namespace Twozerofourpal
         {
             InitializeComponent();
             _board = new Board();
-
-            _Colors = new Dictionary<int, Color>() {
-                {   0, Color.White          },
-                {   2, Color.HotPink          },
-                {   4, Color.Khaki          },
-                {   8, Color.PaleGoldenrod  },
-                {  16, Color.PaleVioletRed    },
-                {  32, Color.Moccasin       },
-                {  64, Color.Gold           },
-                { 128, Color.PapayaWhip     },
-                { 256, Color.LightPink      },
-                { 512, Color.Firebrick      },
-                {1024, Color.MediumVioletRed},
-                {2048, Color.Black          }
-            };
 
             _blocks = new Label[4, 4]
             {
@@ -96,13 +80,22 @@ namespace Twozerofourpal
                 for (int x = 0; x < 4; x++)
                 {
                     _blocks[y, x].Text = _board.Numbers[y, x] + "";
-                    _blocks[y, x].BackColor = _Colors[_board.Numbers[y, x]];
+                    _blocks[y, x].BackColor = SetColor(_board.Numbers[y, x], x, y);
                     if (_board.Numbers[y, x] == 0) _blocks[y, x].Text=String.Empty;
                 }
             Score.Text = _board.score + "";
             MaxScore.Text = _board.maxScore + "";
         }
 
+        private Color SetColor(int num, int x, int y)
+        {
+            double red = 255 - Math.Log(num, 2),
+                green=0, 
+                blue=0;
+
+
+            return Color.FromArgb((int)red, (int)green, (int)blue);
+        }
         private void Gameover()
         {
             MessageBox.Show("님 졌음 ㅋ");

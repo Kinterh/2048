@@ -48,19 +48,20 @@
             this.Score = new System.Windows.Forms.Label();
             this.MaxScore = new System.Windows.Forms.Label();
             this.ScoreBoard = new System.Windows.Forms.Panel();
-            this.ScoreText = new System.Windows.Forms.Label();
             this.MaxScoreText = new System.Windows.Forms.Label();
+            this.ScoreText = new System.Windows.Forms.Label();
             this.ScoreBoard.SuspendLayout();
             this.SuspendLayout();
             // 
             // Logo
             // 
-            this.Logo.AutoSize = true;
-            this.Logo.Location = new System.Drawing.Point(156, 22);
+            this.Logo.Font = new System.Drawing.Font("Gulim", 25F);
+            this.Logo.Location = new System.Drawing.Point(124, 9);
             this.Logo.Name = "Logo";
-            this.Logo.Size = new System.Drawing.Size(29, 12);
+            this.Logo.Size = new System.Drawing.Size(95, 42);
             this.Logo.TabIndex = 0;
             this.Logo.Text = "2048";
+            this.Logo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label1
             // 
@@ -227,22 +228,22 @@
             this.Score.AutoSize = true;
             this.Score.BackColor = System.Drawing.SystemColors.ControlLight;
             this.Score.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.Score.Location = new System.Drawing.Point(87, 10);
+            this.Score.Location = new System.Drawing.Point(87, 31);
             this.Score.Name = "Score";
-            this.Score.Size = new System.Drawing.Size(46, 14);
+            this.Score.Size = new System.Drawing.Size(33, 14);
             this.Score.TabIndex = 17;
-            this.Score.Text = "label17";
+            this.Score.Text = "Now";
             // 
             // MaxScore
             // 
             this.MaxScore.AutoSize = true;
             this.MaxScore.BackColor = System.Drawing.SystemColors.Control;
             this.MaxScore.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.MaxScore.Location = new System.Drawing.Point(87, 33);
+            this.MaxScore.Location = new System.Drawing.Point(87, 8);
             this.MaxScore.Name = "MaxScore";
-            this.MaxScore.Size = new System.Drawing.Size(46, 14);
+            this.MaxScore.Size = new System.Drawing.Size(32, 14);
             this.MaxScore.TabIndex = 18;
-            this.MaxScore.Text = "label17";
+            this.MaxScore.Text = "Max";
             // 
             // ScoreBoard
             // 
@@ -257,6 +258,17 @@
             this.ScoreBoard.Size = new System.Drawing.Size(148, 59);
             this.ScoreBoard.TabIndex = 19;
             // 
+            // MaxScoreText
+            // 
+            this.MaxScoreText.AutoSize = true;
+            this.MaxScoreText.BackColor = System.Drawing.SystemColors.Highlight;
+            this.MaxScoreText.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.MaxScoreText.Location = new System.Drawing.Point(19, 10);
+            this.MaxScoreText.Name = "MaxScoreText";
+            this.MaxScoreText.Size = new System.Drawing.Size(45, 12);
+            this.MaxScoreText.TabIndex = 20;
+            this.MaxScoreText.Text = "최대 수";
+            // 
             // ScoreText
             // 
             this.ScoreText.AutoSize = true;
@@ -267,17 +279,6 @@
             this.ScoreText.Size = new System.Drawing.Size(57, 12);
             this.ScoreText.TabIndex = 19;
             this.ScoreText.Text = "현재 점수";
-            // 
-            // MaxScoreText
-            // 
-            this.MaxScoreText.AutoSize = true;
-            this.MaxScoreText.BackColor = System.Drawing.SystemColors.Highlight;
-            this.MaxScoreText.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.MaxScoreText.Location = new System.Drawing.Point(19, 10);
-            this.MaxScoreText.Name = "MaxScoreText";
-            this.MaxScoreText.Size = new System.Drawing.Size(53, 12);
-            this.MaxScoreText.TabIndex = 20;
-            this.MaxScoreText.Text = "최대점수";
             // 
             // Main
             // 
@@ -308,7 +309,6 @@
             this.ScoreBoard.ResumeLayout(false);
             this.ScoreBoard.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 

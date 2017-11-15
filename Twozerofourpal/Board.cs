@@ -51,6 +51,10 @@ namespace Twozerofourpal
             Console.WriteLine("({0}, {1})에 블럭 {2} 추가됨", x, y, Numbers[y, x]);
         }
 
+        public void AddBlock(int num, int x, int y)
+        {
+            Numbers[y, x] = num;
+        }
 
         ///<summary>
         ///움직일 수 없을 때 false를 반환합니다.

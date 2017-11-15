@@ -36,6 +36,24 @@ namespace Twozerofourpal
 
         private void Main_Load(object sender, EventArgs e)
         {
+            // 색깔 보기위한 디버깅용
+            //_board.AddBlock(2, 0, 0);
+            //_board.AddBlock(2 * 2, 0, 1);
+            //_board.AddBlock(2 * 4, 0, 2);
+            //_board.AddBlock(2 * 8, 0, 3);
+            //_board.AddBlock(2 * 8 * 2, 1, 0);
+            //_board.AddBlock(2 * 8 * 4, 1, 1);
+            //_board.AddBlock(2 * 8 * 8, 1, 2);
+            //_board.AddBlock(2 * 64 * 2, 1, 3);
+            //_board.AddBlock(2 * 64 * 4, 2, 0);
+            //_board.AddBlock(2 * 64 * 8, 2, 1);
+            //_board.AddBlock(2 * 64 * 8 * 2, 2, 2);
+            //_board.AddBlock(2 * 64 * 8 * 4, 2, 3);
+            //_board.AddBlock(2 * 64 * 8 * 8, 3, 0);
+            //_board.AddBlock(2 * 64 * 64 * 2, 3, 1);
+            //_board.AddBlock(2 * 64 * 64 * 4, 3, 2);
+            //_board.AddBlock(2 * 64 * 64 * 8, 3, 3);
+
             _board.AddBlock();
             _board.AddBlock();
             DisplayBoard();
@@ -89,17 +107,18 @@ namespace Twozerofourpal
 
         private Color SetColor(int num, int x, int y)
         {
-            double red = 255 - Math.Log(num, 2),
-                green=0, 
-                blue=0;
+            if (num == 0) return Color.White;
 
-
+            double red = 255 - Math.Log(num, 2) * 50 + (int)Math.Log(num, 32) * 250,
+                green = 200 - (int)Math.Log(num, 32) * 50,
+                blue = 50;
+            
             return Color.FromArgb((int)red, (int)green, (int)blue);
         }
+
         private void Gameover()
         {
             MessageBox.Show("님 졌음 ㅋ");
         }
-        
     }
 }

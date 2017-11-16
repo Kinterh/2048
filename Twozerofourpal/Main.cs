@@ -37,23 +37,11 @@ namespace Twozerofourpal
         private void Main_Load(object sender, EventArgs e)
         {
             // 색깔 보기위한 디버깅용
-            //_board.AddBlock(2, 0, 0);
-            //_board.AddBlock(2 * 2, 0, 1);
-            //_board.AddBlock(2 * 4, 0, 2);
-            //_board.AddBlock(2 * 8, 0, 3);
-            //_board.AddBlock(2 * 8 * 2, 1, 0);
-            //_board.AddBlock(2 * 8 * 4, 1, 1);
-            //_board.AddBlock(2 * 8 * 8, 1, 2);
-            //_board.AddBlock(2 * 64 * 2, 1, 3);
-            //_board.AddBlock(2 * 64 * 4, 2, 0);
-            //_board.AddBlock(2 * 64 * 8, 2, 1);
-            //_board.AddBlock(2 * 64 * 8 * 2, 2, 2);
-            //_board.AddBlock(2 * 64 * 8 * 4, 2, 3);
-            //_board.AddBlock(2 * 64 * 8 * 8, 3, 0);
-            //_board.AddBlock(2 * 64 * 64 * 2, 3, 1);
-            //_board.AddBlock(2 * 64 * 64 * 4, 3, 2);
-            //_board.AddBlock(2 * 64 * 64 * 8, 3, 3);
-
+            //for (int i = 0; i < 4; i++)
+            //    for (int j = 0; j < 4; j++)
+            //    {
+            //        _board.AddBlock((int)Math.Pow(16, i) * (int)Math.Pow(2, j + 1), i, j);
+            //    }
             _board.AddBlock();
             _board.AddBlock();
             DisplayBoard();
@@ -62,7 +50,6 @@ namespace Twozerofourpal
         private void Main_KeyDown(object sender, KeyEventArgs e)
         {
             
-
             bool result = false;
 
             if (e.KeyCode == Keys.A || e.KeyCode == Keys.Left)

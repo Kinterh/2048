@@ -49,7 +49,9 @@ namespace Twozerofourpal
 
         private void Main_KeyDown(object sender, KeyEventArgs e)
         {
-            
+
+            _board.SaveLastBoard();
+
             bool result = false;
             if (e.KeyCode == Keys.A || e.KeyCode == Keys.Left)
             {

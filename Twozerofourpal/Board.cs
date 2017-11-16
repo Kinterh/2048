@@ -230,6 +230,13 @@ namespace Twozerofourpal
             }
         }
 
+        public void SaveLastBoard()
+        {
+            for (int i = 0; i < 4; i++)
+                for (int j = 0; j < 4; j++)
+                    LastBoard[i, j] = Numbers[i, j];
+        }
+
         /// <summary>
         /// 현재 상태를 LastBoard에 저장하는 메서드 입니다.
         /// </summary>

@@ -230,6 +230,13 @@ namespace Twozerofourpal
             }
         }
 
+        public void SaveLastBoard()
+        {
+            for (int i = 0; i < 4; i++)
+                for (int j = 0; j < 4; j++)
+                    LastBoard[i, j] = Numbers[i, j];
+        }
+
         /// <summary>
         /// 안씀 ㅋ 다 RotateRight로 대체
         /// </summary>

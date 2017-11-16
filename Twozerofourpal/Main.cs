@@ -51,7 +51,6 @@ namespace Twozerofourpal
         {
             
             bool result = false;
-
             if (e.KeyCode == Keys.A || e.KeyCode == Keys.Left)
             {
                 result = _board.Move(Way.left);

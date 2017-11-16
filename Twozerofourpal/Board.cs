@@ -12,7 +12,7 @@ namespace Twozerofourpal
 
         public int score = 0;
         public int maxScore = 0;
-
+        public int[,] LastBoard = new int[4, 4];
         public int[,] Numbers = new int[4, 4];
 
         private bool[,] _IsCombined = new bool[4, 4];
@@ -33,6 +33,7 @@ namespace Twozerofourpal
                 for (int j = 0; j < 4; j++)
                 {
                     Numbers[i, j] = numbers[i, j];
+                    LastBoard[i, j] = LastBoard[i, j];
                 }
             }
         }

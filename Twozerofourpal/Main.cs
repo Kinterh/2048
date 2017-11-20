@@ -50,25 +50,29 @@ namespace Twozerofourpal
         private void Main_KeyDown(object sender, KeyEventArgs e)
         {
 
-            _board.SaveLastBoard();
-
             bool result = false;
+
+            Way nowWay = Way.nothing;
+
             if (e.KeyCode == Keys.A || e.KeyCode == Keys.Left)
             {
-                result = _board.Move(Way.left);
+                nowWay = Way.left;
             }
             else if (e.KeyCode == Keys.W || e.KeyCode == Keys.Up)
             {
-                result = _board.Move(Way.up);
+                nowWay = Way.up;
             }
             else if (e.KeyCode == Keys.D || e.KeyCode == Keys.Right)
             {
-                result = _board.Move(Way.right);
+                nowWay = Way.right;
             }
             else if (e.KeyCode == Keys.S || e.KeyCode == Keys.Down)
             {
-                result = _board.Move(Way.down);
+                nowWay = Way.down;
             }
+
+            if(nowWay!=Way.nothing)
+                result = _board.Move(nowWay);
 
             if(result)_board.AddBlock();
 
@@ -108,5 +112,6 @@ namespace Twozerofourpal
         {
             MessageBox.Show("님 졌음 ㅋ");
         }
+
     }
 }

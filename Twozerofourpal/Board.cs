@@ -230,6 +230,8 @@ namespace Twozerofourpal
             }
         }
 
+        
+
         /// <summary>
         /// 현재 상태를 LastBoard에 저장하는 메서드 입니다.
         /// </summary>

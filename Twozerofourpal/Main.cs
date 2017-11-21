@@ -13,6 +13,8 @@ namespace Twozerofourpal
     public partial class Main : Form
     {
         private Label[,] _blocks;
+        private Label[,] _cloneBlocks;
+
         private Board _board;
 
         public Main()
@@ -27,7 +29,15 @@ namespace Twozerofourpal
                 { label9,  label10, label11, label12},
                 { label13, label14, label15, label16}
             };
-            
+
+            _cloneBlocks = new Label[4, 4]
+            {
+                { label17,  label18,  label19,  label20 },
+                { label21,  label22,  label23,  label24 },
+                { label25,  label26,  label27,  label28 },
+                { label29,  label30,  label31,  label32 }
+            };
+
             foreach (Control c in this.Controls)
             {
                 c.KeyDown += Main_KeyDown;
@@ -36,12 +46,13 @@ namespace Twozerofourpal
 
         private void Main_Load(object sender, EventArgs e)
         {
+            AnimatePanel.Visible = false;
             // 색깔 보기위한 디버깅용
             //for (int i = 0; i < 4; i++)
-            //    for (int j = 0; j < 4; j++)
-            //    {
-            //        _board.AddBlock((int)Math.Pow(16, i) * (int)Math.Pow(2, j + 1), i, j);
-            //    }
+                //for (int j = 0; j < 4; j++)
+            //  {
+            //      _board.AddBlock((int)Math.Pow(16, i) * (int)Math.Pow(2, j + 1), i, j);
+            //  }
             _board.AddBlock();
             _board.AddBlock();
             DisplayBoard();
@@ -49,7 +60,6 @@ namespace Twozerofourpal
 
         private void Main_KeyDown(object sender, KeyEventArgs e)
         {
-
             bool result = false;
 
             Way nowWay = Way.nothing;
@@ -91,7 +101,7 @@ namespace Twozerofourpal
                 {
                     _blocks[y, x].Text = _board.Numbers[y, x] + "";
                     _blocks[y, x].BackColor = SetColor(_board.Numbers[y, x], x, y);
-                    if (_board.Numbers[y, x] == 0) _blocks[y, x].Text=String.Empty;
+                    if (_board.Numbers[y, x] == 0) _blocks[y, x].Text = String.Empty;
                 }
             Score.Text = _board.score + "";
             MaxScore.Text = _board.maxScore + "";

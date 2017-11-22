@@ -14,9 +14,9 @@ namespace Twozerofourpal
         public int maxScore = 0;
         public int[,] LastBoard = new int[4, 4];
         public int[,] Numbers = new int[4, 4];
+        public int[,] MovePower = new int[4, 4];
 
         private bool[,] _IsCombined = new bool[4, 4];
-        
 
         // 처음 생성됬을 경우 0으로 채움
         public Board() : this(new int[,]  {
@@ -33,7 +33,8 @@ namespace Twozerofourpal
                 for (int j = 0; j < 4; j++)
                 {
                     Numbers[i, j] = numbers[i, j];
-                    LastBoard[i, j] = LastBoard[i, j];
+                    LastBoard[i, j] = numbers[i, j];
+                    MovePower[i, j] = numbers[i, j];
                 }
             }
         }
@@ -131,6 +132,7 @@ namespace Twozerofourpal
                                     Console.WriteLine("({0}, {1}) == ({2}, {3})", i, y, x, y);
                                     Numbers[y, x] <<= 1;
                                     Numbers[y, i] = 0;
+                                    MovePower[y, i] = i - x;   // 몇칸 이동했는지 저장
                                     _IsCombined[y, x] = true;
                                     isMove = true;
                                     if (!way.HasFlag(Way.check))
@@ -160,15 +162,16 @@ namespace Twozerofourpal
                                 Console.WriteLine("({0}, {1}) -> ({2}, {3}) : value : {4}", i, y, x, y, Numbers[y, i]);
                                 Numbers[y, x] = Numbers[y, i];
                                 Numbers[y, i] = 0;
+                                MovePower[y, i] = i - x;   //몇칸 이동했나 저장.
                                 isMove = true;
                                 break;
                             }
                         }
                     }
                 }
-                if (way.HasFlag(Way.right)) { RotateRight(); RotateRight(); }
-                else if (way.HasFlag(Way.down)) { RotateRight(); RotateRight(); RotateRight(); }
-                else if (way.HasFlag(Way.up)) { RotateRight(); }
+                if (way.HasFlag(Way.right)) { RotateRight(MovePower); RotateRight(MovePower); RotateRight(Numbers, _IsCombined); RotateRight(Numbers, _IsCombined); }
+                else if (way.HasFlag(Way.down)) { RotateRight(MovePower); RotateRight(MovePower); RotateRight(MovePower); RotateRight(Numbers, _IsCombined); RotateRight(Numbers, _IsCombined); RotateRight(Numbers, _IsCombined); }
+                else if (way.HasFlag(Way.up)) { RotateRight(MovePower); RotateRight(Numbers, _IsCombined); }
                 if (way.HasFlag(Way.check))
                 { 
                     #region CopyMainArray
@@ -185,21 +188,21 @@ namespace Twozerofourpal
             #region RIGHT
             else if (way.HasFlag(Way.right))
             {
-                RotateRight(); RotateRight();
+                RotateRight(Numbers, _IsCombined); RotateRight(Numbers, _IsCombined);
                 return Move(way | Way.left | Way.right);
             }
             #endregion
             #region DOWN
             else if (way.HasFlag(Way.down))
             {
-                RotateRight();
+                RotateRight(Numbers, _IsCombined);
                 return Move(way | Way.left | Way.down);
             }
             #endregion
             #region UP
             else if (way.HasFlag(Way.up))
             {
-                RotateRight(); RotateRight(); RotateRight();
+                RotateRight(Numbers, _IsCombined); RotateRight(Numbers, _IsCombined); RotateRight(Numbers, _IsCombined);
                 return Move(way | Way.left | Way.up);
             }
             #endregion
@@ -208,7 +211,7 @@ namespace Twozerofourpal
 
         }
 
-        public void RotateRight()
+        public void RotateRight(int[,] Numbers, bool[,] _IsCombined)
         {
             int[,] temp = new int[4, 4];
             bool[,] tempCom = new bool[4, 4];
@@ -230,7 +233,26 @@ namespace Twozerofourpal
             }
         }
 
-        
+        public void RotateRight(int[,] Numbers)
+        {
+            int[,] temp = new int[4, 4];
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    temp[j, 3 - i] = Numbers[i, j];
+                }
+            }
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    Numbers[i, j] = temp[i, j];
+                }
+            }
+        }
+
+
 
         /// <summary>
         /// 현재 상태를 LastBoard에 저장하는 메서드 입니다.

@@ -46,6 +46,7 @@ namespace Twozerofourpal
 
         private void Main_Load(object sender, EventArgs e)
         {
+            AnimatePanel.BackColor = Color.Empty;
             AnimatePanel.Visible = false;
             // 색깔 보기위한 디버깅용
             //for (int i = 0; i < 4; i++)
@@ -56,12 +57,13 @@ namespace Twozerofourpal
             _board.AddBlock();
             _board.AddBlock();
             DisplayBoard();
+            _board.SaveLastBoard();
         }
 
         private void Main_KeyDown(object sender, KeyEventArgs e)
         {
             bool result = false;
-
+            _board.SaveLastBoard();
             Way nowWay = Way.nothing;
 
             if (e.KeyCode == Keys.A || e.KeyCode == Keys.Left)
@@ -81,7 +83,7 @@ namespace Twozerofourpal
                 nowWay = Way.down;
             }
 
-            if(nowWay!=Way.nothing)
+            if (nowWay!=Way.nothing)
                 result = _board.Move(nowWay);
 
             if(result)_board.AddBlock();
@@ -96,6 +98,15 @@ namespace Twozerofourpal
 
         private void DisplayBoard()
         {
+            for (int y = 0; y < 4; y++)
+                for (int x = 0; x < 4; x++)
+                {
+                    _cloneBlocks[y, x].Text = _board.LastBoard[y, x] + "";
+                    _blocks[y, x].BackColor = SetColor(_board.Numbers[y, x], x, y);
+                    if (_board.Numbers[y, x] == 0) _blocks[y, x].Text = String.Empty;
+                }
+            AnimatePanel.Visible = true;
+            MainblockPanel.Visible = false;
             for (int y = 0; y < 4; y++)
                 for (int x = 0; x < 4; x++)
                 {
@@ -122,6 +133,6 @@ namespace Twozerofourpal
         {
             MessageBox.Show("님 졌음 ㅋ");
         }
-
+        
     }
 }

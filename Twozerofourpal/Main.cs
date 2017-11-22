@@ -12,7 +12,6 @@ namespace Twozerofourpal
 {
     public partial class Main : Form
     {
-        private Dictionary<int, Color> _Colors;
         private Label[,] _blocks;
         private Board _board;
 
@@ -20,21 +19,6 @@ namespace Twozerofourpal
         {
             InitializeComponent();
             _board = new Board();
-
-            _Colors = new Dictionary<int, Color>() {
-                {   0, Color.White          },
-                {   2, Color.HotPink          },
-                {   4, Color.Khaki          },
-                {   8, Color.PaleGoldenrod  },
-                {  16, Color.PaleVioletRed    },
-                {  32, Color.Moccasin       },
-                {  64, Color.Gold           },
-                { 128, Color.PapayaWhip     },
-                { 256, Color.LightPink      },
-                { 512, Color.Firebrick      },
-                {1024, Color.MediumVioletRed},
-                {2048, Color.Black          }
-            };
 
             _blocks = new Label[4, 4]
             {
@@ -52,6 +36,12 @@ namespace Twozerofourpal
 
         private void Main_Load(object sender, EventArgs e)
         {
+            // 색깔 보기위한 디버깅용
+            //for (int i = 0; i < 4; i++)
+            //    for (int j = 0; j < 4; j++)
+            //    {
+            //        _board.AddBlock((int)Math.Pow(16, i) * (int)Math.Pow(2, j + 1), i, j);
+            //    }
             _board.AddBlock();
             _board.AddBlock();
             DisplayBoard();
@@ -59,26 +49,30 @@ namespace Twozerofourpal
 
         private void Main_KeyDown(object sender, KeyEventArgs e)
         {
-            
 
             bool result = false;
 
+            Way nowWay = Way.nothing;
+
             if (e.KeyCode == Keys.A || e.KeyCode == Keys.Left)
             {
-                result = _board.Move(Way.left);
+                nowWay = Way.left;
             }
             else if (e.KeyCode == Keys.W || e.KeyCode == Keys.Up)
             {
-                result = _board.Move(Way.up);
+                nowWay = Way.up;
             }
             else if (e.KeyCode == Keys.D || e.KeyCode == Keys.Right)
             {
-                result = _board.Move(Way.right);
+                nowWay = Way.right;
             }
             else if (e.KeyCode == Keys.S || e.KeyCode == Keys.Down)
             {
-                result = _board.Move(Way.down);
+                nowWay = Way.down;
             }
+
+            if(nowWay!=Way.nothing)
+                result = _board.Move(nowWay);
 
             if(result)_board.AddBlock();
 
@@ -96,17 +90,28 @@ namespace Twozerofourpal
                 for (int x = 0; x < 4; x++)
                 {
                     _blocks[y, x].Text = _board.Numbers[y, x] + "";
-                    _blocks[y, x].BackColor = _Colors[_board.Numbers[y, x]];
+                    _blocks[y, x].BackColor = SetColor(_board.Numbers[y, x], x, y);
                     if (_board.Numbers[y, x] == 0) _blocks[y, x].Text=String.Empty;
                 }
             Score.Text = _board.score + "";
             MaxScore.Text = _board.maxScore + "";
         }
 
+        private Color SetColor(int num, int x, int y)
+        {
+            if (num == 0) return Color.White;
+
+            double red = 255 - Math.Log(num, 2) * 50 + (int)Math.Log(num, 32) * 250,
+                green = 200 - (int)Math.Log(num, 32) * 50,
+                blue = 50;
+            
+            return Color.FromArgb((int)red, (int)green, (int)blue);
+        }
+
         private void Gameover()
         {
             MessageBox.Show("님 졌음 ㅋ");
         }
-        
+
     }
 }

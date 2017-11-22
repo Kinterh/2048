@@ -12,7 +12,7 @@ namespace Twozerofourpal
 
         public int score = 0;
         public int maxScore = 0;
-
+        public int[,] LastBoard = new int[4, 4];
         public int[,] Numbers = new int[4, 4];
 
         private bool[,] _IsCombined = new bool[4, 4];
@@ -33,6 +33,7 @@ namespace Twozerofourpal
                 for (int j = 0; j < 4; j++)
                 {
                     Numbers[i, j] = numbers[i, j];
+                    LastBoard[i, j] = LastBoard[i, j];
                 }
             }
         }
@@ -51,6 +52,10 @@ namespace Twozerofourpal
             Console.WriteLine("({0}, {1})에 블럭 {2} 추가됨", x, y, Numbers[y, x]);
         }
 
+        public void AddBlock(int num, int x, int y)
+        {
+            Numbers[y, x] = num;
+        }
 
         ///<summary>
         ///움직일 수 없을 때 false를 반환합니다.
@@ -124,7 +129,7 @@ namespace Twozerofourpal
                                 if (Numbers[y, x] == Numbers[y, i] && !_IsCombined[y, x])
                                 {
                                     Console.WriteLine("({0}, {1}) == ({2}, {3})", i, y, x, y);
-                                    Numbers[y, x] *= 2;
+                                    Numbers[y, x] <<= 1;
                                     Numbers[y, i] = 0;
                                     _IsCombined[y, x] = true;
                                     isMove = true;
@@ -223,6 +228,18 @@ namespace Twozerofourpal
                     Numbers[i, j] = temp[i, j];
                 }
             }
+        }
+
+        
+
+        /// <summary>
+        /// 현재 상태를 LastBoard에 저장하는 메서드 입니다.
+        /// </summary>
+        public void SaveLastBoard()
+        {
+            for (int i = 0; i < 4; i++)
+                for (int j = 0; j < 4; j++)
+                    LastBoard[i, j] = Numbers[i, j];
         }
 
         /// <summary>

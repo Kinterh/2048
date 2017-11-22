@@ -9,6 +9,6 @@ namespace Twozerofourpal
     [Flags]
     public enum Way
     {
-        left = 1, right = 2, up = 4, down = 8, check = 16
+        left = 1, right = 2, up = 4, down = 8, check = 16, nothing = 32
     }
 }
